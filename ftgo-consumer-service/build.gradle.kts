@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.0.1" apply false
     id("io.spring.dependency-management") version "1.1.0"
-    //id("org.graalvm.buildtools.native") version "0.9.18" apply false
+    id("org.graalvm.buildtools.native") version "0.9.18" apply false
     kotlin("jvm") version "1.7.22"
     kotlin("plugin.spring") version "1.7.22" apply false
     kotlin("plugin.jpa") version "1.7.22" apply false
@@ -31,6 +31,7 @@ subprojects {
 
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+        implementation("org.springframework.boot:spring-boot-starter-web")
         implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
         implementation("org.hibernate.validator:hibernate-validator:8.0.0.Final")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
