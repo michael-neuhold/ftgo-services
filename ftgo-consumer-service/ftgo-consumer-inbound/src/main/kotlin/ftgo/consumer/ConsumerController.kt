@@ -2,20 +2,21 @@ package ftgo.consumer
 
 import ftgo.consumer.inbound.ConsumerLogic
 import ftgo.consumer.shared.Consumer
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.UUID
 
 @RestController
+@RequestMapping(
+    value = ["/api/consumer"],
+    produces = [MediaType.APPLICATION_JSON_VALUE]
+)
 class ConsumerController(private val consumerLogic: ConsumerLogic) {
 
     @PostMapping
     fun create(@RequestBody consumer: CreateConsumerRequestDto): ResponseEntity<UUID> {
-        val created = consumerLogic.create(Consumer("", "", "")).id;
+        val created = consumerLogic.create(Consumer(consumer.firstName, consumer.lastName, consumer.email)).id;
         if (created != null) {
             return ResponseEntity.ok(created)
         }

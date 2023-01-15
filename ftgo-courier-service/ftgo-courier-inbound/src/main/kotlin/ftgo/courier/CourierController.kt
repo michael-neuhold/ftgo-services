@@ -2,20 +2,21 @@ package ftgo.courier
 
 import ftgo.courier.inbound.CourierLogic
 import ftgo.courier.shared.Courier
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.UUID
 
 @RestController
+@RequestMapping(
+    value = ["/api/courier"],
+    produces = [MediaType.APPLICATION_JSON_VALUE]
+)
 class CourierController(private val courierLogic: CourierLogic) {
 
     @PostMapping
     fun create(@RequestBody courier: CreateCourierRequestDto): ResponseEntity<UUID> {
-        val created = courierLogic.create(Courier("", "", "")).id;
+        val created = courierLogic.create(Courier(courier.firstName, courier.lastName, courier.email)).id;
         if (created != null) {
             return ResponseEntity.ok(created);
         }
