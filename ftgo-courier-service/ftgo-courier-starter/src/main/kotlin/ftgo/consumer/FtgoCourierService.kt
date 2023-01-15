@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
 @SpringBootApplication
-@Import(value = [FtgoConsumerServiceInboundConfig::class])
-class FtgoConsumerService
+@Import(value = [FtgoCourierServiceInboundConfig::class])
+class FtgoCourierService
 
 fun main(args: Array<String>) {
-    runApplication<FtgoConsumerService>(*args)
+    runApplication<FtgoCourierService>(*args)
 }
 
 @RestController
@@ -19,6 +19,7 @@ class MyController {
 
     @GetMapping("/hello")
     fun getMessage(): String {
-        return "Hello from Consumer Service";
+        return "Hello from Courier Service";
     }
+
 }
