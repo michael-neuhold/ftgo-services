@@ -1,4 +1,4 @@
-rootProject.name = "ftgo-consumer-service"
+//rootProject.name = "ftgo-consumer-service"
 
 include("ftgo-consumer-inbound-api")
 include("ftgo-consumer-inbound")
