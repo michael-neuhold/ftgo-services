@@ -1,7 +1,8 @@
 package ftgo.consumer
 
-import ftgo.consumer.inbound.ConsumerLogic
-import ftgo.consumer.shared.Consumer
+import ftgo.consumer.inbound.ConsumerService
+import ftgo.consumer.mapper.ConsumerDomainToConsumerDto
+import ftgo.consumer.mapper.ConsumerDtoToConsumerDomain
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -12,11 +13,11 @@ import java.util.UUID
     value = ["/api/consumer"],
     produces = [MediaType.APPLICATION_JSON_VALUE]
 )
-class ConsumerController(private val consumerLogic: ConsumerLogic) {
+class ConsumerController(private val consumerService: ConsumerService) {
 
     @PostMapping
     fun create(@RequestBody consumer: CreateConsumerRequestDto): ResponseEntity<UUID> {
-        val created = consumerLogic.create(Consumer(consumer.firstName, consumer.lastName, consumer.email)).id;
+        val created = consumerService.create(ConsumerDtoToConsumerDomain.toDomain(consumer)).id;
         if (created != null) {
             return ResponseEntity.ok(created)
         }
@@ -24,17 +25,17 @@ class ConsumerController(private val consumerLogic: ConsumerLogic) {
     }
 
     @GetMapping("{id}")
-    fun getById(@PathVariable id: Long): ResponseEntity<Consumer> {
-        val consumer = consumerLogic.findById(id);
+    fun getById(@PathVariable id: UUID): ResponseEntity<ConsumerDto> {
+        val consumer = consumerService.findById(id);
         if (consumer.isPresent) {
-            return ResponseEntity.ok(consumer.get());
+            return ResponseEntity.ok(ConsumerDomainToConsumerDto.toDto(consumer.get()));
         }
         return ResponseEntity.notFound().build();
     }
 
     @GetMapping
-    fun getAll(): ResponseEntity<List<Consumer>> {
-        return ResponseEntity.ok(consumerLogic.getAll());
+    fun getAll(): ResponseEntity<List<ConsumerDto>> {
+        return ResponseEntity.ok(ConsumerDomainToConsumerDto.toDto(consumerService.getAll()))
     }
 
 }

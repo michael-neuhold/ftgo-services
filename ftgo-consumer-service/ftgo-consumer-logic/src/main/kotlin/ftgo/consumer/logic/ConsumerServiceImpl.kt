@@ -1,18 +1,18 @@
 package ftgo.consumer.logic
 
-import ftgo.consumer.inbound.ConsumerLogic
+import ftgo.consumer.Consumer
+import ftgo.consumer.inbound.ConsumerService
 import ftgo.consumer.outbound.ConsumerRepository
-import ftgo.consumer.shared.Consumer
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class ConsumerLogicImpl(private val consumerRepository: ConsumerRepository) : ConsumerLogic {
+class ConsumerServiceImpl(private val consumerRepository: ConsumerRepository) : ConsumerService {
     override fun create(consumer: Consumer): Consumer {
         return consumerRepository.save(consumer);
     }
 
-    override fun findById(id: Long): Optional<Consumer> {
+    override fun findById(id: UUID): Optional<Consumer> {
         return consumerRepository.findById(id);
     }
 

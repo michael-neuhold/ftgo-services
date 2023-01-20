@@ -1,13 +1,13 @@
 package ftgo.consumer.inbound
 
-import ftgo.consumer.shared.Consumer
+import ftgo.consumer.Consumer
 import java.util.*
 
-interface ConsumerLogic {
+interface ConsumerService {
 
     fun create(consumer: Consumer): Consumer;
 
-    fun findById(id: Long): Optional<Consumer>;
+    fun findById(id: UUID): Optional<Consumer>;
 
     fun getAll(): List<Consumer>;
 

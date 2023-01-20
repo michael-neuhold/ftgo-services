@@ -1,4 +1,4 @@
-package ftgo.consumer.shared
+package ftgo.consumer.model
 
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -6,10 +6,10 @@ import jakarta.persistence.Id
 import java.util.*
 
 @Entity
-data class Consumer(
-    private val firstName: String,
-    private val lastName: String,
-    private val email: String
+data class ConsumerEntity(
+    val firstName: String,
+    val lastName: String,
+    val email: String
 ) {
     @Id
     @GeneratedValue

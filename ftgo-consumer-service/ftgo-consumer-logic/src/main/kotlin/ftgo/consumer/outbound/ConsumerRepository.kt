@@ -1,7 +1,16 @@
 package ftgo.consumer.outbound
 
-import ftgo.consumer.shared.Consumer
-import org.springframework.data.repository.CrudRepository
+import ftgo.consumer.Consumer
+import org.springframework.stereotype.Repository
+import java.util.*
 
-interface ConsumerRepository : CrudRepository<Consumer, Long> {
+@Repository
+interface ConsumerRepository {
+
+    fun save(consumer: Consumer): Consumer;
+
+    fun findById(id: UUID): Optional<Consumer>;
+
+    fun findAll(): List<Consumer>;
+
 }
