@@ -1,8 +1,8 @@
-package ftgo.consumer.jpa
+package ftgo.courier.jpa
 
-import ftgo.consumer.model.CourierEntity
+import ftgo.courier.model.CourierEntity
 import org.springframework.data.repository.CrudRepository
-import java.util.*
+import java.util.UUID
 
-interface CourierJpaRepository: CrudRepository<CourierEntity, UUID> {
+interface CourierJpaRepository : CrudRepository<CourierEntity, UUID> {
 }

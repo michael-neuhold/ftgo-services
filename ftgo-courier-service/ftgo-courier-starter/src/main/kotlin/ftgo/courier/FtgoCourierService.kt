@@ -1,8 +1,7 @@
 package ftgo.courier
 
-import ftgo.consumer.config.FtgoCourierServiceOutboundConfig
-import ftgo.courier.FtgoCourierServiceInboundConfig
 import ftgo.courier.config.FtgoCourierServiceLogicConfig
+import ftgo.courier.config.FtgoCourierServiceOutboundConfig
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Import

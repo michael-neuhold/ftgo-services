@@ -1,4 +1,4 @@
-package ftgo.consumer.model
+package ftgo.courier.model
 
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue

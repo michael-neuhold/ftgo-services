@@ -1,7 +1,7 @@
-package ftgo.consumer.mapper
+package ftgo.courier.mapper
 
-import ftgo.consumer.model.CourierEntity
 import ftgo.courier.Courier
+import ftgo.courier.model.CourierEntity
 
 class CourierEntityToCourierDomain {
 
@@ -12,5 +12,4 @@ class CourierEntityToCourierDomain {
         }
 
     }
-
 }

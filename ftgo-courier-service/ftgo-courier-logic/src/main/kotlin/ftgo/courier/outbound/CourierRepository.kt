@@ -2,10 +2,9 @@ package ftgo.courier.outbound
 
 import ftgo.courier.Courier
 import org.springframework.stereotype.Repository
-import org.springframework.stereotype.Service
 import java.util.*
 
-@Service
+@Repository
 interface CourierRepository {
 
     fun save(courier: Courier): Courier;

@@ -1,15 +1,16 @@
-package ftgo.consumer.mapper
+package ftgo.courier.mapper
 
-import ftgo.consumer.model.CourierEntity
 import ftgo.courier.Courier
+import ftgo.courier.model.CourierEntity
 
 class CourierDomainToCourierEntity {
 
     companion object {
 
-        fun toEntity(courierDomain: Courier): CourierEntity {
-            return CourierEntity(courierDomain.firstName, courierDomain.lastName, courierDomain.email);
+        fun toEntity(courier: Courier): CourierEntity {
+            return CourierEntity(courier.firstName, courier.lastName, courier.email)
         }
 
     }
+
 }
