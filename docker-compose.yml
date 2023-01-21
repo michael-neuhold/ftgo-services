@@ -1,15 +1,15 @@
 version: '3'
 services:
-  ftgo-database:
-    image: mysql:latest
-    environment:
-      MYSQL_USER: 'mysqluser'
-      MYSQL_PASSWORD: 'mysqlpw'
-      MYSQL_ROOT_PASSWORD: 'mysqlrootpw'
-    ports:
-      - "3306:3306"
-    expose:
-      - '3306'
+  #ftgo-database:
+  #  image: mysql:latest
+  #  environment:
+  #    MYSQL_USER: 'mysqluser'
+  #    MYSQL_PASSWORD: 'mysqlpw'
+  #    MYSQL_ROOT_PASSWORD: 'mysqlrootpw'
+  #  ports:
+  #    - "3306:3306"
+  #  expose:
+  #    - '3306'
   ftgo-consumer-service:
     build:
       context: ftgo-consumer-service/ftgo-consumer-starter
@@ -22,3 +22,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8092:8092"
+  ftgo-gateway-service:
+    build:
+      context: ftgo-gateway-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
