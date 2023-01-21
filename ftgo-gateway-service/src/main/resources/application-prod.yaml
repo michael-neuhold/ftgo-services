@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: ftgo-consumer-service
+          uri: http://localhost:8091
+          predicates:
+            - Path=/consumer/**
+          filters:
+            - RewritePath=/consumer(?<segment>/?.*), $\{segment}
+        - id: ftgo-courier-service
+          uri: http://localhost:8092
+          predicates:
+            - Path=/courier/**
+          filters:
+            - RewritePath=/courier(?<segment>/?.*), $\{segment}
+        - id: ftgo-monolith
+          uri: http://localhost:8090
+          predicates:
+            - Path=/monolith/**
+          filters:
+            - RewritePath=/monolith(?<segment>/?.*), $\{segment}

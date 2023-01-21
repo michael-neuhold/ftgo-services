@@ -14,6 +14,12 @@ spring:
         - Path=/courier/**
         filters:
           - RewritePath=/courier(?<segment>/?.*), $\{segment}
+      - id: ftgo-monolith
+        uri: http://localhost:8090
+        predicates:
+          - Path=/monolith/**
+        filters:
+          - RewritePath=/monolith(?<segment>/?.*), $\{segment}
 
 logging:
   level:

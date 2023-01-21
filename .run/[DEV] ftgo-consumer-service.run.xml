@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="[DEV] ftgo-consumer-service" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="dev" />
+    <module name="ftgo-consumer-service.ftgo-consumer-starter.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="ftgo.consumer.FtgoConsumerService" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
