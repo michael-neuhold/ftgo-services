@@ -17,7 +17,9 @@ jobs:
         password: ${{ secrets.ACCESS_TOKEN }}
 
     - name: Build Spring Project
-      run: ./gradlew build
+      run: |
+        cd ftgo-consumer-service/ftgo-consumer-starter
+        gradlew build
 
     - name: Build Docker image
       run: |
