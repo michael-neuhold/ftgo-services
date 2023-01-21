@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: ftgo-consumer-service
+        uri: http://localhost:8091
+        predicates:
+        - Path=/consumer/**
+        filters:
+        - RewritePath=/consumer(?<segment>/?.*), $\{segment}
+      - id: ftgo-courier-service
+        uri: http://localhost:8092
+        predicates:
+        - Path=/courier/**
+        filters:
+          - RewritePath=/courier(?<segment>/?.*), $\{segment}
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
