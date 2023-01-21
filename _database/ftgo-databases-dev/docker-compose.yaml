@@ -1,0 +1,24 @@
+version: '3'
+services:
+  ftgo-consumer-database-dev:
+    image: mysql:latest
+    environment:
+      MYSQL_USER: 'mysqluser'
+      MYSQL_PASSWORD: 'mysqlpw'
+      MYSQL_ROOT_PASSWORD: 'mysqlrootpw'
+      MYSQL_DATABASE: 'consumer-db'
+    ports:
+      - "3306:3306"
+    expose:
+      - '3306'
+  ftgo-courier-database-dev:
+    image: mysql:latest
+    environment:
+      MYSQL_USER: 'mysqluser'
+      MYSQL_PASSWORD: 'mysqlpw'
+      MYSQL_ROOT_PASSWORD: 'mysqlrootpw'
+      MYSQL_DATABASE: 'courier-db'
+    ports:
+      - "3307:3306"
+    expose:
+      - '3307'
