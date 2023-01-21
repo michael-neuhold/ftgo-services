@@ -6,6 +6,8 @@ apply(plugin = "org.graalvm.buildtools.native")
 
 dependencies {
     implementation(project(":ftgo-courier-inbound"))
+    implementation(project(":ftgo-courier-logic"))
+    implementation(project(":ftgo-courier-outbound"))
 }
 
 tasks.withType<org.springframework.boot.gradle.tasks.bundling.BootBuildImage> {
