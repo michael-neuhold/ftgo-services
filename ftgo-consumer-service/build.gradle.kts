@@ -42,16 +42,6 @@ subprojects {
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 
-    project.afterEvaluate {
-        tasks.findByName("test")?.let {
-            tasks.named<Test>("test") {
-                group = "verification"
-                description = "Runs all unit tests"
-                useJUnitPlatform()
-            }
-        }
-    }
-
     tasks.getByName("jar") {
         enabled = true
     }

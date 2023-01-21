@@ -18,10 +18,11 @@ jobs:
 
     - name: Build Spring Project
       run: |
-        cd ftgo-consumer-service/ftgo-consumer-starter
-        ./gradlew build 
+        cd ftgo-consumer-service
+        ./gradlew build
 
     - name: Build Docker image
       run: |
+        cd ftgo-consumer-starter
         docker build . --tag ghcr.io/michael-neuhold/ftgo-services:latest
         docker push ghcr.io/michael-neuhold/ftgo-services:latest
