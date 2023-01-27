@@ -8,7 +8,7 @@ const val V1 = "v1"
 
 const val COURIERS = "couriers"
 
-const val COURIERS_RESOURCE_V1 = "$API/$V1/$COURIERS"
+const val COURIERS_RESOURCE_V1 = "/$API/$V1/$COURIERS"
 
 const val ID_PARAM = "{id}"
 const val AVAILABILITY = "availability"

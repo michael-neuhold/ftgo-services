@@ -8,7 +8,7 @@ const val V1 = "v1"
 
 const val CONSUMERS = "consumers"
 
-const val CONSUMERS_RESOURCE_V1 = "$API/$V1/$CONSUMERS"
+const val CONSUMERS_RESOURCE_V1 = "/$API/$V1/$CONSUMERS"
 const val ID_PARAM = "{id}"
 
 fun buildCreatedUriV1(id: UUID?): URI {
