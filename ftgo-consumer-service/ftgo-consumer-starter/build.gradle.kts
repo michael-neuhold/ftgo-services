@@ -5,6 +5,7 @@ tasks.getByName("bootJar") {
 apply(plugin = "org.graalvm.buildtools.native")
 
 dependencies {
+    implementation(project(":ftgo-consumer-common"))
     implementation(project(":ftgo-consumer-inbound"))
     implementation(project(":ftgo-consumer-logic"))
     implementation(project(":ftgo-consumer-outbound"))

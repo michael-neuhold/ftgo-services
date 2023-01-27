@@ -2,6 +2,7 @@ package ftgo.courier
 
 import ftgo.consumer.mapper.CourierDomainToCourierDto
 import ftgo.consumer.mapper.CourierDtoToCourierDomain
+import ftgo.courier.constants.COURIERS_RESOURCE_V2
 import ftgo.courier.inbound.CourierService
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -10,7 +11,7 @@ import java.util.UUID
 
 @RestController
 @RequestMapping(
-    value = ["/api/courier"],
+    value = [COURIERS_RESOURCE_V2],
     produces = [MediaType.APPLICATION_JSON_VALUE]
 )
 class CourierController(private val courierService: CourierService) {
