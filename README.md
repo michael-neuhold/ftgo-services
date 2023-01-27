@@ -1,5 +1,6 @@
 # ftgo-services
-This repository consists of three services which were implemented for a master thesis.
+This repository contains three microservices which were implemented within the scope of my master thesis.
+The purpose is to show the decomposition of a monolithic system into microservices using architecture patterns.
 
 ## Architecture
 
