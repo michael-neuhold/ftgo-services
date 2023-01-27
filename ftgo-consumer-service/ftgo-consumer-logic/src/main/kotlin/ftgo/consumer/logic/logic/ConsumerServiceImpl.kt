@@ -6,10 +6,11 @@ import ftgo.consumer.common.constants.withPrefix
 import ftgo.consumer.logic.inbound.ConsumerService
 import ftgo.consumer.logic.outbound.ConsumerRepository
 import org.slf4j.Logger
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 import java.util.*
 
-@Service
+@Component
 class ConsumerServiceImpl(private val consumerRepository: ConsumerRepository, private val logger: Logger) :
     ConsumerService {
     override fun create(consumer: Consumer): Consumer {

@@ -1,4 +1,4 @@
-package ftgo.consumer.inbound.constants.mapper
+package ftgo.consumer.inbound.mapper
 
 import ftgo.consumer.logic.Consumer
 import ftgo.consumer.inbound.dto.ConsumerDto

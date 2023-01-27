@@ -7,8 +7,8 @@ import ftgo.consumer.inbound.constants.buildCreatedUriV1
 import ftgo.consumer.inbound.dto.ConsumerDto
 import ftgo.consumer.inbound.dto.CreateConsumerRequestDto
 import ftgo.consumer.logic.inbound.ConsumerService
-import ftgo.consumer.inbound.constants.mapper.toDomain
-import ftgo.consumer.inbound.constants.mapper.toDto
+import ftgo.consumer.inbound.mapper.toDomain
+import ftgo.consumer.inbound.mapper.toDto
 import org.slf4j.Logger
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
