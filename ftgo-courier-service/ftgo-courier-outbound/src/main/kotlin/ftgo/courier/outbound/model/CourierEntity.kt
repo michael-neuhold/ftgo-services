@@ -3,7 +3,6 @@ package ftgo.courier.outbound.model
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
-import java.util.*
 
 @Entity
 data class CourierEntity(
@@ -13,5 +12,5 @@ data class CourierEntity(
 ) {
     @Id
     @GeneratedValue
-    var id: UUID? = null
+    var id: Long? = null
 }

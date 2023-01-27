@@ -20,7 +20,7 @@ class ConsumerRepositoryImpl(private val consumerJpaRepository: ConsumerJpaRepos
         return toDomain(consumerJpaRepository.save(toEntity(consumer)));
     }
 
-    override fun findById(id: UUID): Optional<Consumer> {
+    override fun findById(id: Long): Optional<Consumer> {
         logger.info(withPrefix(OUTBOUND_LEVEL, "Find Consumer with id: {}"), id)
         return consumerJpaRepository.findById(id)
             .map { consumer -> toDomain(consumer) };

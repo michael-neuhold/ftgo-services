@@ -9,7 +9,7 @@ interface CourierRepository {
 
     fun save(courier: Courier): Courier;
 
-    fun findById(id: UUID): Optional<Courier>;
+    fun findById(id: Long): Optional<Courier>;
 
     fun findAll(): List<Courier>;
 

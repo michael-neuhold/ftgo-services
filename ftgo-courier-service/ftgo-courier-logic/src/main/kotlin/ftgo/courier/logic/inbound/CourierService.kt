@@ -9,7 +9,7 @@ interface CourierService {
 
     fun create(courier: Courier): Courier;
 
-    fun getById(id: UUID): Optional<Courier>;
+    fun getById(id: Long): Optional<Courier>;
 
     fun getAll(): List<Courier>;
 

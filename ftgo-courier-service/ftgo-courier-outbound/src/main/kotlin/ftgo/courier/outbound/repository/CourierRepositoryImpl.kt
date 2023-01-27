@@ -20,7 +20,7 @@ class CourierRepositoryImpl(private val courierJpaRepository: CourierJpaReposito
         return toDomain(courierJpaRepository.save(toEntity(courier)))
     }
 
-    override fun findById(id: UUID): Optional<Courier> {
+    override fun findById(id: Long): Optional<Courier> {
         logger.info(withPrefix(OUTBOUND_LEVEL, "Find Courier with id: {}"), id)
         return courierJpaRepository.findById(id).map { courier -> toDomain(courier) }
     }

@@ -9,7 +9,7 @@ interface ConsumerRepository {
 
     fun save(consumer: Consumer): Consumer;
 
-    fun findById(id: UUID): Optional<Consumer>;
+    fun findById(id: Long): Optional<Consumer>;
 
     fun findAll(): List<Consumer>;
 

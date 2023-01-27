@@ -41,7 +41,7 @@ class CourierController(private val courierService: CourierService, private val 
 
     @GetMapping(ID_PARAM)
     @Operation(description = "Returns courier with given id.")
-    fun getById(@PathVariable id: UUID): ResponseEntity<CourierDto> {
+    fun getById(@PathVariable id: Long): ResponseEntity<CourierDto> {
         logger.info(withPrefix(INBOUND_LEVEL, "Get Courier with id = {}"), id)
         val courier = courierService.getById(id);
         if (courier.isPresent) {

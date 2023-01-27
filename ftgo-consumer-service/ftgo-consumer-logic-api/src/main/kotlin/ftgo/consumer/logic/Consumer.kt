@@ -1,5 +1,4 @@
 package ftgo.consumer.logic
 
-import java.util.*
 
-data class Consumer(val id: UUID?, val firstName: String, val lastName: String, val email: String)
+data class Consumer(val id: Long?, val firstName: String, val lastName: String, val email: String)

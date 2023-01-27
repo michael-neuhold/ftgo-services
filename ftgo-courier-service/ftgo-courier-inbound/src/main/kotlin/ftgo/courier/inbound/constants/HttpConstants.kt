@@ -1,7 +1,6 @@
 package ftgo.courier.inbound.constants
 
 import java.net.URI
-import java.util.*
 
 const val API = "api"
 const val V1 = "v1"
@@ -15,6 +14,6 @@ const val AVAILABILITY = "availability"
 
 const val AVAILABILITY_OF_COURIER = "$ID_PARAM/$AVAILABILITY"
 
-fun buildCreatedUriV1(id: UUID?): URI {
+fun buildCreatedUriV1(id: Long?): URI {
     return URI("$COURIERS_RESOURCE_V1/$id")
 }

@@ -18,7 +18,7 @@ class ConsumerServiceImpl(private val consumerRepository: ConsumerRepository, pr
         return consumerRepository.save(consumer);
     }
 
-    override fun findById(id: UUID): Optional<Consumer> {
+    override fun findById(id: Long): Optional<Consumer> {
         logger.info(withPrefix(LOGIC_LEVEL, "Find Consumer with id: {}"), id)
         return consumerRepository.findById(id);
     }

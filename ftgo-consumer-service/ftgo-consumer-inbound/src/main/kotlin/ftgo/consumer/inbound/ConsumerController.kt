@@ -40,7 +40,7 @@ class ConsumerController(private val consumerService: ConsumerService, private v
 
     @GetMapping(ID_PARAM)
     @Operation(description = "Returns consumer with given id.")
-    fun getById(@PathVariable id: UUID): ResponseEntity<ConsumerDto> {
+    fun getById(@PathVariable id: Long): ResponseEntity<ConsumerDto> {
         logger.info(withPrefix(INBOUND_LEVEL, "Get Consumer with id = {}"), id)
         val consumer = consumerService.findById(id)
         if (consumer.isPresent) {

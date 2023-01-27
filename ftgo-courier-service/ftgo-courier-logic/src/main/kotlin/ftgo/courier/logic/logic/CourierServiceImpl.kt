@@ -23,7 +23,7 @@ class CourierServiceImpl(private val courierRepository: CourierRepository,
         return courierRepository.save(courier)
     }
 
-    override fun getById(id: UUID): Optional<Courier> {
+    override fun getById(id: Long): Optional<Courier> {
         logger.info(withPrefix(LOGIC_LEVEL, "Find Courier with id: {}"), id)
         return courierRepository.findById(id);
     }
