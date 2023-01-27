@@ -3,6 +3,7 @@ package ftgo.consumer.inbound
 import ftgo.consumer.common.constants.INBOUND_LEVEL
 import ftgo.consumer.common.constants.withPrefix
 import ftgo.consumer.inbound.constants.CONSUMERS_RESOURCE_V1
+import ftgo.consumer.inbound.constants.ID_PARAM
 import ftgo.consumer.inbound.constants.buildCreatedUriV1
 import ftgo.consumer.inbound.dto.ConsumerDto
 import ftgo.consumer.inbound.dto.CreateConsumerRequestDto
@@ -35,7 +36,7 @@ class ConsumerController(private val consumerService: ConsumerService, private v
         return ResponseEntity.internalServerError().build()
     }
 
-    @GetMapping("{id}")
+    @GetMapping(ID_PARAM)
     fun getById(@PathVariable id: UUID): ResponseEntity<ConsumerDto> {
         logger.info(withPrefix(INBOUND_LEVEL, "Get Consumer with id = {}"), id)
         val consumer = consumerService.findById(id)

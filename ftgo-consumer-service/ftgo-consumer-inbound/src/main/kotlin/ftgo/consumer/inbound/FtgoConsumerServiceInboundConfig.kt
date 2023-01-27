@@ -1,6 +1,7 @@
 package ftgo.consumer.inbound
 
 import ftgo.consumer.common.FtgoConsumerServiceCommonConfig
+import ftgo.consumer.logic.config.FtgoConsumerServiceLogicConfig
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.InjectionPoint
@@ -14,7 +15,7 @@ import org.springframework.context.annotation.Scope
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan
-@EntityScan(value = ["ftgo.consumer.inbound", "ftgo.consumer.logic"])
+@ComponentScan(value = ["ftgo.consumer.inbound", "ftgo.consumer.logic"])
+@EntityScan
 @Import(value = [FtgoConsumerServiceCommonConfig::class])
 class FtgoConsumerServiceInboundConfig
