@@ -10,6 +10,7 @@ import ftgo.consumer.inbound.dto.CreateConsumerRequestDto
 import ftgo.consumer.logic.inbound.ConsumerService
 import ftgo.consumer.inbound.mapper.toDomain
 import ftgo.consumer.inbound.mapper.toDto
+import io.swagger.v3.oas.annotations.Operation
 import org.slf4j.Logger
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -24,6 +25,7 @@ import java.util.UUID
 class ConsumerController(private val consumerService: ConsumerService, private val logger: Logger) {
 
     @PostMapping
+    @Operation(description = "Creates new consumer.")
     fun create(@RequestBody consumer: CreateConsumerRequestDto): ResponseEntity<UUID> {
         logger.info(withPrefix(INBOUND_LEVEL, "Create Consumer {}"), consumer)
         val createdConsumer = consumerService.create(toDomain(consumer))
@@ -37,6 +39,7 @@ class ConsumerController(private val consumerService: ConsumerService, private v
     }
 
     @GetMapping(ID_PARAM)
+    @Operation(description = "Returns consumer with given id.")
     fun getById(@PathVariable id: UUID): ResponseEntity<ConsumerDto> {
         logger.info(withPrefix(INBOUND_LEVEL, "Get Consumer with id = {}"), id)
         val consumer = consumerService.findById(id)
@@ -49,6 +52,7 @@ class ConsumerController(private val consumerService: ConsumerService, private v
     }
 
     @GetMapping
+    @Operation(description = "Returns all consumers.")
     fun getAll(): ResponseEntity<List<ConsumerDto>> {
         logger.info(withPrefix(INBOUND_LEVEL, "Get All Consumers"))
         return ResponseEntity.ok(toDto(consumerService.getAll()))

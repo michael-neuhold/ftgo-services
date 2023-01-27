@@ -11,6 +11,7 @@ import ftgo.courier.inbound.constants.COURIERS_RESOURCE_V1
 import ftgo.courier.inbound.constants.ID_PARAM
 import ftgo.courier.inbound.constants.buildCreatedUriV1
 import ftgo.courier.logic.inbound.CourierService
+import io.swagger.v3.oas.annotations.Operation
 import org.slf4j.Logger
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -25,6 +26,7 @@ import java.util.UUID
 class CourierController(private val courierService: CourierService, private val logger: Logger) {
 
     @PostMapping
+    @Operation(description = "Creates new courier.")
     fun create(@RequestBody courier: CreateCourierRequestDto): ResponseEntity<UUID> {
         logger.info(withPrefix(INBOUND_LEVEL, "Create Courier {}"), courier)
         val createdCourier = courierService.create(toDomain(courier));
@@ -38,6 +40,7 @@ class CourierController(private val courierService: CourierService, private val 
     }
 
     @GetMapping(ID_PARAM)
+    @Operation(description = "Returns courier with given id.")
     fun getById(@PathVariable id: UUID): ResponseEntity<CourierDto> {
         logger.info(withPrefix(INBOUND_LEVEL, "Get Courier with id = {}"), id)
         val courier = courierService.getById(id);
@@ -50,12 +53,14 @@ class CourierController(private val courierService: CourierService, private val 
     }
 
     @GetMapping
+    @Operation(description = "Returns all couriers.")
     fun getAll(): ResponseEntity<List<CourierDto>> {
         logger.info(withPrefix(INBOUND_LEVEL, "Get All Couriers"))
         return ResponseEntity.ok(toDto(courierService.getAll()));
     }
 
     @GetMapping(AVAILABILITY_OF_COURIER)
+    @Operation(description = "Toggles availability of courier with given id.")
     fun getAvailability(@PathVariable id: Long): String {
         return "getAvailability";
     }
