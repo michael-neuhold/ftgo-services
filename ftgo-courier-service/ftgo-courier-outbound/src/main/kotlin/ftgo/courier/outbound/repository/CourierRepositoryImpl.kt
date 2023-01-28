@@ -4,8 +4,8 @@ import ftgo.consumer.common.constants.OUTBOUND_LEVEL
 import ftgo.consumer.common.constants.withPrefix
 import ftgo.courier.logic.Courier
 import ftgo.courier.outbound.jpa.CourierJpaRepository
-import ftgo.courier.outbound.mapper.toDomain
-import ftgo.courier.outbound.mapper.toEntity
+import ftgo.courier.outbound.mapper.courier.toDomain
+import ftgo.courier.outbound.mapper.courier.toEntity
 import ftgo.courier.logic.outbound.CourierRepository
 import org.slf4j.Logger
 import org.springframework.stereotype.Repository
@@ -29,4 +29,10 @@ class CourierRepositoryImpl(private val courierJpaRepository: CourierJpaReposito
         logger.info(withPrefix(OUTBOUND_LEVEL, "Find all couriers"))
         return courierJpaRepository.findAll().map { courier -> toDomain(courier) }
     }
+
+    override fun update(courier: Courier): Courier {
+        logger.info(withPrefix(OUTBOUND_LEVEL, "Update courier: {}"), courier)
+        return toDomain(courierJpaRepository.save(toEntity(courier)))
+    }
+
 }

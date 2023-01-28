@@ -13,4 +13,6 @@ interface CourierRepository {
 
     fun findAll(): List<Courier>;
 
+    fun update(courier: Courier): Courier;
+
 }

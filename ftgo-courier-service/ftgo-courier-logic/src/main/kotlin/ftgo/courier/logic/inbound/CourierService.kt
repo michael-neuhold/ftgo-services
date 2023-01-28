@@ -5,7 +5,7 @@ import java.util.*
 
 interface CourierService {
 
-    fun updateAvailability(id: Long);
+    fun updateAvailability(id: Long): Optional<Boolean>;
 
     fun create(courier: Courier): Courier;
 

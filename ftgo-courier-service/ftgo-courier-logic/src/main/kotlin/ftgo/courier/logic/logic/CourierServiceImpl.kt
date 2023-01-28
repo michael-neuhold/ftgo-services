@@ -10,12 +10,19 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class CourierServiceImpl(private val courierRepository: CourierRepository,
-                         private val logger: Logger) : CourierService {
+class CourierServiceImpl(
+    private val courierRepository: CourierRepository,
+    private val logger: Logger
+) : CourierService {
 
-    override fun updateAvailability(id: Long) {
+    override fun updateAvailability(id: Long): Optional<Boolean> {
         logger.info(withPrefix(LOGIC_LEVEL, "Update Availability of courier id: {}"), id)
-        print("not implemented")
+        val courierToUpdate = getById(id);
+        if (courierToUpdate.isPresent) {
+            courierToUpdate.get().available = !courierToUpdate.get().available
+            return Optional.of(courierRepository.update(courierToUpdate.get()).available)
+        }
+       return Optional.empty();
     }
 
     override fun create(courier: Courier): Courier {

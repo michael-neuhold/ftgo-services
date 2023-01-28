@@ -2,8 +2,8 @@ package ftgo.courier.inbound
 
 import ftgo.consumer.common.constants.INBOUND_LEVEL
 import ftgo.consumer.common.constants.withPrefix
-import ftgo.consumer.mapper.toDomain
-import ftgo.consumer.mapper.toDto
+import ftgo.courier.inbound.mapper.courier.toDomain
+import ftgo.courier.inbound.mapper.courier.toDto
 import ftgo.courier.inbound.api.dto.CourierDto
 import ftgo.courier.inbound.api.dto.CreateCourierRequestDto
 import ftgo.courier.inbound.constants.AVAILABILITY_OF_COURIER
@@ -27,12 +27,16 @@ class CourierController(private val courierService: CourierService, private val 
 
     @PostMapping
     @Operation(description = "Creates new courier.")
-    fun create(@RequestBody courier: CreateCourierRequestDto): ResponseEntity<UUID> {
+    fun create(@RequestBody courier: CreateCourierRequestDto): ResponseEntity<Long> {
         logger.info(withPrefix(INBOUND_LEVEL, "Create Courier {}"), courier)
         val createdCourier = courierService.create(toDomain(courier));
         if (createdCourier.id != null) {
-            logger.info(withPrefix(INBOUND_LEVEL,
-                "Courier was created. Courier.id = {}"), createdCourier.id)
+            logger.info(
+                withPrefix(
+                    INBOUND_LEVEL,
+                    "Courier was created. Courier.id = {}"
+                ), createdCourier.id
+            )
             return ResponseEntity.created(buildCreatedUriV1(createdCourier.id)).build();
         }
         logger.error(withPrefix(INBOUND_LEVEL, "Courier could not be created"))
@@ -42,13 +46,13 @@ class CourierController(private val courierService: CourierService, private val 
     @GetMapping(ID_PARAM)
     @Operation(description = "Returns courier with given id.")
     fun getById(@PathVariable id: Long): ResponseEntity<CourierDto> {
-        logger.info(withPrefix(INBOUND_LEVEL, "Get Courier with id = {}"), id)
+        logger.info(withPrefix(INBOUND_LEVEL, "Get Courier with id: {}"), id)
         val courier = courierService.getById(id);
         if (courier.isPresent) {
-            logger.info(withPrefix(INBOUND_LEVEL, "Courier with id = {} found = {}"), id, courier)
+            logger.info(withPrefix(INBOUND_LEVEL, "Courier with id: {} found = {}"), id, courier.get())
             return ResponseEntity.ok(toDto(courier.get()));
         }
-        logger.info(withPrefix(INBOUND_LEVEL, "Courier with id = {} could not be found"), id)
+        logger.info(withPrefix(INBOUND_LEVEL, "Courier with id: {} could not be found"), id)
         return ResponseEntity.notFound().build();
     }
 
@@ -60,9 +64,37 @@ class CourierController(private val courierService: CourierService, private val 
     }
 
     @GetMapping(AVAILABILITY_OF_COURIER)
-    @Operation(description = "Toggles availability of courier with given id.")
-    fun getAvailability(@PathVariable id: Long): String {
-        return "getAvailability";
+    @Operation(description = "Get availability of courier with given id.")
+    fun getAvailability(@PathVariable id: Long): ResponseEntity<Boolean> {
+        logger.info(withPrefix(INBOUND_LEVEL, "Get Availability of courier with id: {}"), id)
+        val courier = courierService.getById(id);
+        if (courier.isPresent) {
+            logger.info(
+                withPrefix(INBOUND_LEVEL, "Courier with id: {} found. availability: {}"),
+                id,
+                courier.get().available
+            )
+            return ResponseEntity.ok(courier.get().available);
+        }
+        logger.info(withPrefix(INBOUND_LEVEL, "Courier with id: {} could not be found"), id)
+        return ResponseEntity.notFound().build();
+    }
+
+    @PatchMapping(AVAILABILITY_OF_COURIER)
+    @Operation(description = "Updates availability of courier with given id.")
+    fun toggleAvailability(@PathVariable id: Long): ResponseEntity<Boolean> {
+        logger.info(withPrefix(INBOUND_LEVEL, "Update Availability of courier with id: {}"), id)
+        val newCourierAvailability = courierService.updateAvailability(id);
+        if (newCourierAvailability.isPresent) {
+            logger.info(
+                withPrefix(INBOUND_LEVEL, "Courier with id: {} found. availability: {}"),
+                id,
+                newCourierAvailability.get()
+            )
+            return ResponseEntity.ok(newCourierAvailability.get());
+        }
+        logger.info(withPrefix(INBOUND_LEVEL, "Courier with id: {} could not be found"), id)
+        return ResponseEntity.notFound().build();
     }
 
 }
