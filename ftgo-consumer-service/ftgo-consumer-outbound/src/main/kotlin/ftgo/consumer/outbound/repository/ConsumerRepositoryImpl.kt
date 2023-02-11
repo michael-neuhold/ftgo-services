@@ -8,28 +8,37 @@ import ftgo.consumer.outbound.mapper.toDomain
 import ftgo.consumer.outbound.mapper.toEntity
 import ftgo.consumer.logic.outbound.ConsumerRepository
 import org.slf4j.Logger
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
-import java.util.*
 
 @Repository
 class ConsumerRepositoryImpl(private val consumerJpaRepository: ConsumerJpaRepository, private val logger: Logger) :
     ConsumerRepository {
 
-    override fun save(consumer: Consumer): Consumer {
+    override fun save(consumer: Consumer): Result<Consumer> {
         logger.info(withPrefix(OUTBOUND_LEVEL, "Save Consumer: {}"), consumer)
-        return toDomain(consumerJpaRepository.save(toEntity(consumer)));
+
+        if (consumer.id != null) {
+            return Result.failure(Exception("Id was set when creating entity."))
+        }
+
+        return Result.runCatching { consumerJpaRepository.save(toEntity(consumer)) }
+            .fold(
+                onSuccess = { createdConsumer -> Result.success(toDomain(createdConsumer)) },
+                onFailure = { Result.failure(Exception("Persistence error")) }
+            )
     }
 
-    override fun findById(id: Long): Optional<Consumer> {
+    override fun findById(id: Long): Result<Consumer?> {
         logger.info(withPrefix(OUTBOUND_LEVEL, "Find Consumer with id: {}"), id)
-        return consumerJpaRepository.findById(id)
-            .map { consumer -> toDomain(consumer) };
+        return Result.success(consumerJpaRepository.findByIdOrNull(id)
+            ?.let { consumer -> toDomain(consumer) })
     }
 
-    override fun findAll(): List<Consumer> {
+    override fun findAll(): Result<List<Consumer>> {
         logger.info(withPrefix(OUTBOUND_LEVEL, "Find all Consumers"))
-        return consumerJpaRepository.findAll()
-            .map { consumer -> toDomain(consumer) };
+        return Result.success(consumerJpaRepository.findAll()
+            .map { consumer -> toDomain(consumer) })
     }
 
 }

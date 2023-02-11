@@ -5,10 +5,10 @@ import java.util.*
 
 interface ConsumerService {
 
-    fun create(consumer: Consumer): Consumer;
+    fun create(consumer: Consumer): Result<Consumer>
 
-    fun findById(id: Long): Optional<Consumer>;
+    fun findById(id: Long): Result<Consumer?>
 
-    fun getAll(): List<Consumer>;
+    fun getAll(): Result<List<Consumer>>
 
 }

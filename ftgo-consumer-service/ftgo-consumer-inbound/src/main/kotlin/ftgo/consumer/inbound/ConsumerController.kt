@@ -28,34 +28,42 @@ class ConsumerController(private val consumerService: ConsumerService, private v
     @Operation(description = "Creates new consumer.")
     fun create(@RequestBody consumer: CreateConsumerRequestDto): ResponseEntity<UUID> {
         logger.info(withPrefix(INBOUND_LEVEL, "Create Consumer {}"), consumer)
-        val createdConsumer = consumerService.create(toDomain(consumer))
-        if (createdConsumer.id != null) {
-            logger.info(withPrefix(INBOUND_LEVEL,
-                "Consumer was created. Consumer.id = {}"), createdConsumer.id)
-            return ResponseEntity.created(buildCreatedUriV1(createdConsumer.id)).build()
-        }
-        logger.error(withPrefix(INBOUND_LEVEL, "Consumer could not be created"))
-        return ResponseEntity.internalServerError().build()
+
+        return consumerService.create(toDomain(consumer))
+            .fold(
+                onSuccess = { createdConsumer ->
+                    ResponseEntity.created(buildCreatedUriV1(createdConsumer.id)).build()
+                },
+                onFailure = { ResponseEntity.internalServerError().build() }
+            )
     }
 
     @GetMapping(ID_PARAM)
     @Operation(description = "Returns consumer with given id.")
     fun getById(@PathVariable id: Long): ResponseEntity<ConsumerDto> {
         logger.info(withPrefix(INBOUND_LEVEL, "Get Consumer with id = {}"), id)
-        val consumer = consumerService.findById(id)
-        if (consumer.isPresent) {
-            logger.info(withPrefix(INBOUND_LEVEL, "Consumer with id = {} found = {}"), id, consumer)
-            return ResponseEntity.ok(toDto(consumer.get()))
-        }
-        logger.info(withPrefix(INBOUND_LEVEL, "Consumer with id = {} could not be found"), id)
-        return ResponseEntity.notFound().build()
+
+        return consumerService.findById(id)
+            .fold(
+                onSuccess = { consumerOrNull ->
+                    consumerOrNull
+                        ?.let { consumer -> ResponseEntity.ok(toDto(consumer)) }
+                        ?: ResponseEntity.notFound().build()
+                },
+                onFailure = { ResponseEntity.internalServerError().build() }
+            )
     }
 
     @GetMapping
     @Operation(description = "Returns all consumers.")
     fun getAll(): ResponseEntity<List<ConsumerDto>> {
         logger.info(withPrefix(INBOUND_LEVEL, "Get All Consumers"))
-        return ResponseEntity.ok(toDto(consumerService.getAll()))
+
+        return consumerService.getAll()
+            .fold(
+                onSuccess = { consumers -> ResponseEntity.ok(toDto(consumers)) },
+                onFailure = { ResponseEntity.internalServerError().build() }
+            )
     }
 
 }
