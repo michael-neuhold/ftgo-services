@@ -8,31 +8,47 @@ import ftgo.courier.outbound.mapper.courier.toDomain
 import ftgo.courier.outbound.mapper.courier.toEntity
 import ftgo.courier.logic.outbound.CourierRepository
 import org.slf4j.Logger
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-class CourierRepositoryImpl(private val courierJpaRepository: CourierJpaRepository,
-                            private val logger: Logger) : CourierRepository {
+class CourierRepositoryImpl(
+    private val courierJpaRepository: CourierJpaRepository,
+    private val logger: Logger
+) : CourierRepository {
 
-    override fun save(courier: Courier): Courier {
+    override fun save(courier: Courier): Result<Courier> {
         logger.info(withPrefix(OUTBOUND_LEVEL, "Save Courier: {}"), courier)
-        return toDomain(courierJpaRepository.save(toEntity(courier)))
+        return Result.runCatching { courierJpaRepository.save(toEntity(courier)) }
+            .fold(
+                onSuccess = { createdCourier -> Result.success(toDomain(createdCourier)) },
+                onFailure = { Result.failure(Exception("Persistence error")) }
+            )
     }
 
-    override fun findById(id: Long): Optional<Courier> {
+    override fun findById(id: Long): Result<Courier?> {
         logger.info(withPrefix(OUTBOUND_LEVEL, "Find Courier with id: {}"), id)
-        return courierJpaRepository.findById(id).map { courier -> toDomain(courier) }
+        return Result.success(courierJpaRepository.findByIdOrNull(id)?.let { courier -> toDomain(courier) })
     }
 
-    override fun findAll(): List<Courier> {
+    override fun findAll(): Result<List<Courier>> {
         logger.info(withPrefix(OUTBOUND_LEVEL, "Find all couriers"))
-        return courierJpaRepository.findAll().map { courier -> toDomain(courier) }
+        return Result.success(courierJpaRepository.findAll().map { courier -> toDomain(courier) })
     }
 
-    override fun update(courier: Courier): Courier {
+    override fun update(courier: Courier): Result<Courier> {
         logger.info(withPrefix(OUTBOUND_LEVEL, "Update courier: {}"), courier)
-        return toDomain(courierJpaRepository.save(toEntity(courier)))
+
+        if (courier.id == null) {
+            return Result.failure(Exception("Id is not set when updating entity."))
+        }
+
+        return Result.runCatching { courierJpaRepository.save(toEntity(courier)) }
+            .fold(
+                onSuccess = { updatedCourier -> Result.success(toDomain(updatedCourier)) },
+                onFailure = { Result.failure(Exception("Persistence error")) }
+            )
     }
 
 }

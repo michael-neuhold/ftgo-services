@@ -15,7 +15,8 @@ class CourierServiceImpl(
     private val logger: Logger
 ) : CourierService {
 
-    override fun updateAvailability(id: Long): Optional<Boolean> {
+    /*
+    override fun updateAvailability(id: Long): Result<Boolean> {
         logger.info(withPrefix(LOGIC_LEVEL, "Update Availability of courier id: {}"), id)
         val courierToUpdate = getById(id);
         if (courierToUpdate.isPresent) {
@@ -23,26 +24,26 @@ class CourierServiceImpl(
             return Optional.of(courierRepository.update(courierToUpdate.get()).available)
         }
        return Optional.empty();
-    }
+    }*/
 
-    override fun create(courier: Courier): Courier {
+    override fun create(courier: Courier): Result<Courier> {
         logger.info(withPrefix(LOGIC_LEVEL, "Create Courier: {}"), courier)
         return courierRepository.save(courier)
     }
 
-    override fun update(courier: Courier): Courier {
+    override fun update(courier: Courier): Result<Courier> {
         logger.info(withPrefix(LOGIC_LEVEL, "Update Courier: {}"), courier)
         return courierRepository.update(courier)
     }
 
-    override fun getById(id: Long): Optional<Courier> {
+    override fun findById(id: Long): Result<Courier?> {
         logger.info(withPrefix(LOGIC_LEVEL, "Find Courier with id: {}"), id)
         return courierRepository.findById(id);
     }
 
-    override fun getAll(): List<Courier> {
+    override fun findAll(): Result<List<Courier>> {
         logger.info(withPrefix(LOGIC_LEVEL, "Find all Couriers"))
-        return courierRepository.findAll().toList()
+        return courierRepository.findAll()
     }
 
 }

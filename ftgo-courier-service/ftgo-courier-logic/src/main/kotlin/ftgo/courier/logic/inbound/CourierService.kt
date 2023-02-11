@@ -1,18 +1,17 @@
 package ftgo.courier.logic.inbound
 
 import ftgo.courier.logic.Courier
-import java.util.*
 
 interface CourierService {
 
-    fun updateAvailability(id: Long): Optional<Boolean>
+    // fun updateAvailability(id: Long): Result<Boolean>
 
-    fun create(courier: Courier): Courier
+    fun create(courier: Courier): Result<Courier>
 
-    fun update(courier: Courier): Courier
+    fun update(courier: Courier): Result<Courier>
 
-    fun getById(id: Long): Optional<Courier>
+    fun findById(id: Long): Result<Courier?>
 
-    fun getAll(): List<Courier>
+    fun findAll(): Result<List<Courier>>
 
 }

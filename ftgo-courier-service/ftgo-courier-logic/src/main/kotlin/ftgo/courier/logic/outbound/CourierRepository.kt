@@ -7,12 +7,12 @@ import java.util.*
 @Repository
 interface CourierRepository {
 
-    fun save(courier: Courier): Courier;
+    fun save(courier: Courier): Result<Courier>;
 
-    fun findById(id: Long): Optional<Courier>;
+    fun findById(id: Long): Result<Courier?>;
 
-    fun findAll(): List<Courier>;
+    fun findAll(): Result<List<Courier>>;
 
-    fun update(courier: Courier): Courier;
+    fun update(courier: Courier): Result<Courier>;
 
 }
