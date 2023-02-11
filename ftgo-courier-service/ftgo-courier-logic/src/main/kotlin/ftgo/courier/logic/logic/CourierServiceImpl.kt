@@ -30,6 +30,11 @@ class CourierServiceImpl(
         return courierRepository.save(courier)
     }
 
+    override fun update(courier: Courier): Courier {
+        logger.info(withPrefix(LOGIC_LEVEL, "Update Courier: {}"), courier)
+        return courierRepository.update(courier)
+    }
+
     override fun getById(id: Long): Optional<Courier> {
         logger.info(withPrefix(LOGIC_LEVEL, "Find Courier with id: {}"), id)
         return courierRepository.findById(id);

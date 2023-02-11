@@ -5,12 +5,14 @@ import java.util.*
 
 interface CourierService {
 
-    fun updateAvailability(id: Long): Optional<Boolean>;
+    fun updateAvailability(id: Long): Optional<Boolean>
 
-    fun create(courier: Courier): Courier;
+    fun create(courier: Courier): Courier
 
-    fun getById(id: Long): Optional<Courier>;
+    fun update(courier: Courier): Courier
 
-    fun getAll(): List<Courier>;
+    fun getById(id: Long): Optional<Courier>
+
+    fun getAll(): List<Courier>
 
 }
