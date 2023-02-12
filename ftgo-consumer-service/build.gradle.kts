@@ -41,6 +41,8 @@ subprojects {
         implementation("mysql:mysql-connector-java:8.0.32")
         runtimeOnly("com.h2database:h2")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+        implementation("io.sentry:sentry-spring-boot-starter-jakarta:6.13.1")
     }
 
     tasks.getByName("jar") {

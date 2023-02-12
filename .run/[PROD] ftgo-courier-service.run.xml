@@ -1,6 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="[PROD] ftgo-courier-service" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" value="prod" />
+    <envs>
+      <env name="SENTRY_DSN" value="https://1defdbb970a949c7aba5c1121d580046@o4504623281864704.ingest.sentry.io/4504668515532800" />
+    </envs>
     <module name="ftgo-courier-service.ftgo-courier-starter.main" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="ftgo.courier.FtgoCourierService" />
     <method v="2">

@@ -14,12 +14,12 @@ class ConsumerServiceImpl(private val consumerRepository: ConsumerRepository, pr
     ConsumerService {
     override fun create(consumer: Consumer): Result<Consumer> {
         logger.info(withPrefix(LOGIC_LEVEL, "Create Consumer: {}"), consumer)
-        return consumerRepository.save(consumer);
+        return consumerRepository.save(consumer)
     }
 
     override fun findById(id: Long): Result<Consumer?> {
         logger.info(withPrefix(LOGIC_LEVEL, "Find Consumer with id: {}"), id)
-        return consumerRepository.findById(id);
+        return consumerRepository.findById(id)
     }
 
     override fun getAll(): Result<List<Consumer>> {
