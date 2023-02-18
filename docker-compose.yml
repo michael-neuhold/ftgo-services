@@ -1,21 +1,35 @@
 version: '3'
 services:
-  #ftgo-database:
+  #ftgo-consumer-database-dev:
   #  image: mysql:latest
   #  environment:
   #    MYSQL_USER: 'mysqluser'
   #    MYSQL_PASSWORD: 'mysqlpw'
   #    MYSQL_ROOT_PASSWORD: 'mysqlrootpw'
+  #    MYSQL_DATABASE: 'consumer-db'
   #  ports:
   #    - "3306:3306"
   #  expose:
   #    - '3306'
+  #ftgo-courier-database-dev:
+  #  image: mysql:latest
+  #  environment:
+  #    MYSQL_USER: 'mysqluser'
+  #    MYSQL_PASSWORD: 'mysqlpw'
+  #    MYSQL_ROOT_PASSWORD: 'mysqlrootpw'
+  #    MYSQL_DATABASE: 'courier-db'
+  #  ports:
+  #    - "3307:3306"
+  #  expose:
+  #    - '3307'
   ftgo-consumer-service:
     build:
       context: ftgo-consumer-service/ftgo-consumer-starter
       dockerfile: Dockerfile
     ports:
       - "8091:8091"
+    #depends_on:
+    #  - ftgo-consumer-database-dev
   ftgo-courier-service:
     build:
       context: ftgo-courier-service/ftgo-courier-starter
@@ -28,3 +42,5 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    #depends_on:
+    #  - ftgo-courier-database-dev

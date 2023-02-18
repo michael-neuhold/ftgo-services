@@ -55,5 +55,5 @@ Hexagonal architecture readings:
 - https://www.happycoders.eu/software-craftsmanship/hexagonal-architecture/
 
 ## Deployment
-1. Database: [docker-compose](./_database/ftgo-databases-dev/docker-compose.yaml)
-2. Services: [docker-compose](./docker-compose.yml)
+1. Database (for development): [docker-compose](./_database/ftgo-databases-dev/docker-compose.yaml)
+2. Services + Databases (check comments in file): [docker-compose](./docker-compose.yml)
