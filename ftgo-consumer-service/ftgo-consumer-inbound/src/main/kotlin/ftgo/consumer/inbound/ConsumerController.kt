@@ -2,6 +2,7 @@ package ftgo.consumer.inbound
 
 import ftgo.consumer.common.constants.INBOUND_LEVEL
 import ftgo.consumer.common.constants.withPrefix
+import ftgo.consumer.inbound.constants.CONSUMERS
 import ftgo.consumer.inbound.constants.CONSUMERS_RESOURCE_V1
 import ftgo.consumer.inbound.constants.ID_PARAM
 import ftgo.consumer.inbound.constants.buildCreatedUriV1
@@ -11,6 +12,7 @@ import ftgo.consumer.logic.inbound.ConsumerService
 import ftgo.consumer.inbound.mapper.toDomain
 import ftgo.consumer.inbound.mapper.toDto
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.slf4j.Logger
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -22,6 +24,7 @@ import java.util.UUID
     value = [CONSUMERS_RESOURCE_V1],
     produces = [MediaType.APPLICATION_JSON_VALUE]
 )
+@Tag(name = CONSUMERS)
 class ConsumerController(private val consumerService: ConsumerService, private val logger: Logger) {
 
     @PostMapping

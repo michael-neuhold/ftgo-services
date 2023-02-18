@@ -16,13 +16,3 @@ class FtgoCourierService
 fun main(args: Array<String>) {
     runApplication<FtgoCourierService>(*args)
 }
-
-@RestController
-class MyController {
-
-    @GetMapping("/hello")
-    fun getMessage(): String {
-        return "Hello from Courier Service";
-    }
-
-}

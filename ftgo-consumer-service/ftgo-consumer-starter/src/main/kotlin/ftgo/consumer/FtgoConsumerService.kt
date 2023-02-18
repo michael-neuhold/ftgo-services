@@ -21,12 +21,3 @@ class FtgoConsumerService
 fun main(args: Array<String>) {
     runApplication<FtgoConsumerService>(*args)
 }
-
-@RestController
-class MyController {
-
-    @GetMapping("/hello")
-    fun getMessage(): String {
-        return "Hello from Consumer Service";
-    }
-}

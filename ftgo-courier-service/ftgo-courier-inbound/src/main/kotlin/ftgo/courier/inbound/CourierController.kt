@@ -8,13 +8,11 @@ import ftgo.courier.inbound.mapper.courier.toDto
 import ftgo.courier.inbound.api.dto.CourierDto
 import ftgo.courier.inbound.api.dto.CreateCourierRequestDto
 import ftgo.courier.inbound.api.dto.UpdateCourierRequestDto
-import ftgo.courier.inbound.constants.AVAILABILITY_OF_COURIER
-import ftgo.courier.inbound.constants.COURIERS_RESOURCE_V1
-import ftgo.courier.inbound.constants.ID_PARAM
-import ftgo.courier.inbound.constants.buildCreatedUriV1
+import ftgo.courier.inbound.constants.*
 import ftgo.courier.inbound.mapper.action.toDomain
 import ftgo.courier.logic.inbound.CourierService
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.slf4j.Logger
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -25,6 +23,7 @@ import org.springframework.web.bind.annotation.*
     value = [COURIERS_RESOURCE_V1],
     produces = [MediaType.APPLICATION_JSON_VALUE]
 )
+@Tag(name = COURIERS)
 class CourierController(private val courierService: CourierService, private val logger: Logger) {
 
     @PostMapping
@@ -114,7 +113,7 @@ class CourierController(private val courierService: CourierService, private val 
             )
     }
 
-    @PostMapping("$ID_PARAM/action")
+    @PostMapping("$ID_PARAM/$ACTION")
     @Operation(description = "Adds action to courier.")
     fun createAction(@PathVariable id: Long, @RequestBody actionDto: ActionDto): ResponseEntity<CourierDto> {
         logger.info(withPrefix(INBOUND_LEVEL, "Add action {} to courier with id: {}"), actionDto, id)
@@ -130,9 +129,9 @@ class CourierController(private val courierService: CourierService, private val 
             )
     }
 
-    @DeleteMapping("$ID_PARAM/action/{orderId}")
+    @DeleteMapping("$ID_PARAM/$ACTION/$ORDER_ID_PARAM")
     @Operation(description = "Removes action from courier.")
-    fun deleteAction(@PathVariable id: Long, @PathVariable orderId: Long): ResponseEntity<CourierDto> {
+    fun deleteAction(@PathVariable id: Long, @PathVariable orderId: Long): ResponseEntity<Unit> {
         logger.info(
             withPrefix(INBOUND_LEVEL, "Removes action from courier with id: {} and of order with id: {}"),
             id,
