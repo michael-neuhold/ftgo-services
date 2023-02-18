@@ -2,6 +2,7 @@ package ftgo.courier.inbound
 
 import ftgo.consumer.common.constants.INBOUND_LEVEL
 import ftgo.consumer.common.constants.withPrefix
+import ftgo.courier.inbound.api.dto.ActionDto
 import ftgo.courier.inbound.mapper.courier.toDomain
 import ftgo.courier.inbound.mapper.courier.toDto
 import ftgo.courier.inbound.api.dto.CourierDto
@@ -11,6 +12,7 @@ import ftgo.courier.inbound.constants.AVAILABILITY_OF_COURIER
 import ftgo.courier.inbound.constants.COURIERS_RESOURCE_V1
 import ftgo.courier.inbound.constants.ID_PARAM
 import ftgo.courier.inbound.constants.buildCreatedUriV1
+import ftgo.courier.inbound.mapper.action.toDomain
 import ftgo.courier.logic.inbound.CourierService
 import io.swagger.v3.oas.annotations.Operation
 import org.slf4j.Logger
@@ -108,6 +110,38 @@ class CourierController(private val courierService: CourierService, private val 
                 onSuccess = { updatedCourier ->
                     ResponseEntity.ok(toDto(updatedCourier))
                 },
+                onFailure = { ResponseEntity.internalServerError().build() }
+            )
+    }
+
+    @PostMapping("$ID_PARAM/action")
+    @Operation(description = "Adds action to courier.")
+    fun createAction(@PathVariable id: Long, @RequestBody actionDto: ActionDto): ResponseEntity<CourierDto> {
+        logger.info(withPrefix(INBOUND_LEVEL, "Add action {} to courier with id: {}"), actionDto, id)
+
+        return courierService.createAction(id, toDomain(actionDto))
+            .fold(
+                onSuccess = { courierOrNull ->
+                    courierOrNull
+                        ?.let { courier -> ResponseEntity.ok(toDto(courier)) }
+                        ?: ResponseEntity.notFound().build()
+                },
+                onFailure = { ResponseEntity.internalServerError().build() }
+            )
+    }
+
+    @DeleteMapping("$ID_PARAM/action/{orderId}")
+    @Operation(description = "Removes action from courier.")
+    fun deleteAction(@PathVariable id: Long, @PathVariable orderId: Long): ResponseEntity<CourierDto> {
+        logger.info(
+            withPrefix(INBOUND_LEVEL, "Removes action from courier with id: {} and of order with id: {}"),
+            id,
+            orderId
+        )
+
+        return courierService.deleteAction(id, orderId)
+            .fold(
+                onSuccess = { ResponseEntity.noContent().build() },
                 onFailure = { ResponseEntity.internalServerError().build() }
             )
     }

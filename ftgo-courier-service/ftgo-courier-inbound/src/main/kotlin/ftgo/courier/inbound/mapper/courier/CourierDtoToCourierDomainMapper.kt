@@ -11,7 +11,8 @@ fun toDomain(createConsumerRequestDto: CreateCourierRequestDto): Courier {
         createConsumerRequestDto.firstName,
         createConsumerRequestDto.lastName,
         createConsumerRequestDto.available,
-        toDomain(createConsumerRequestDto.address)
+        toDomain(createConsumerRequestDto.address),
+        listOf()
     )
 }
 
@@ -21,6 +22,7 @@ fun toDomain(updateCourierRequestDto: UpdateCourierRequestDto): Courier {
         updateCourierRequestDto.firstName,
         updateCourierRequestDto.lastName,
         updateCourierRequestDto.available,
-        toDomain(updateCourierRequestDto.address)
+        toDomain(updateCourierRequestDto.address),
+        listOf()
     )
 }

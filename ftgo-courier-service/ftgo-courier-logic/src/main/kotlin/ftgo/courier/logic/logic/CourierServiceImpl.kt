@@ -2,8 +2,10 @@ package ftgo.courier.logic.logic
 
 import ftgo.consumer.common.constants.LOGIC_LEVEL
 import ftgo.consumer.common.constants.withPrefix
+import ftgo.courier.logic.Action
 import ftgo.courier.logic.Courier
 import ftgo.courier.logic.inbound.CourierService
+import ftgo.courier.logic.outbound.ActionRepository
 import ftgo.courier.logic.outbound.CourierRepository
 import org.slf4j.Logger
 import org.springframework.stereotype.Component
@@ -12,6 +14,7 @@ import java.util.*
 @Component
 class CourierServiceImpl(
     private val courierRepository: CourierRepository,
+    private val actionRepository: ActionRepository,
     private val logger: Logger
 ) : CourierService {
 
@@ -44,6 +47,20 @@ class CourierServiceImpl(
     override fun findAll(): Result<List<Courier>> {
         logger.info(withPrefix(LOGIC_LEVEL, "Find all Couriers"))
         return courierRepository.findAll()
+    }
+
+    override fun createAction(courierId: Long, action: Action): Result<Courier?> {
+        logger.info(withPrefix(LOGIC_LEVEL, "Create action for courier with id: {}"), courierId)
+        return actionRepository.save(action)
+            .fold(
+                onSuccess = { a -> findById(a.courierId)},
+                onFailure = { Result.failure(Exception()) }
+            )
+    }
+
+    override fun deleteAction(courierId: Long, orderId: Long): Result<Unit> {
+        logger.info(withPrefix(LOGIC_LEVEL, "Remove action for courier with id: {}"), courierId)
+        return actionRepository.deleteById(courierId, orderId)
     }
 
 }

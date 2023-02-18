@@ -7,5 +7,6 @@ data class CourierDto(
     val firstName: String,
     val lastName: String,
     val available: Boolean,
-    val address: AddressDto
+    val address: AddressDto,
+    val action: List<ActionDto>
 )
