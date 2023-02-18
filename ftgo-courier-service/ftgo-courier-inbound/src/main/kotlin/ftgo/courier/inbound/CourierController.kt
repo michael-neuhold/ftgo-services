@@ -82,24 +82,7 @@ class CourierController(private val courierService: CourierService, private val 
             )
     }
 
-    /*@PatchMapping(AVAILABILITY_OF_COURIER)
-    @Operation(description = "Updates availability of courier with given id.")
-    fun toggleAvailability(@PathVariable id: Long): ResponseEntity<Boolean> {
-        logger.info(withPrefix(INBOUND_LEVEL, "Update Availability of courier with id: {}"), id)
-        val newCourierAvailability = courierService.updateAvailability(id);
-        if (newCourierAvailability.isPresent) {
-            logger.info(
-                withPrefix(INBOUND_LEVEL, "Courier with id: {} found. availability: {}"),
-                id,
-                newCourierAvailability.get()
-            )
-            return ResponseEntity.ok(newCourierAvailability.get());
-        }
-        logger.info(withPrefix(INBOUND_LEVEL, "Courier with id: {} could not be found"), id)
-        return ResponseEntity.notFound().build();
-    }*/
-
-    @PatchMapping(ID_PARAM)
+    @PostMapping("$UPDATE/$ID_PARAM")
     @Operation(description = "Updates courier with given id.")
     fun update(@PathVariable id: Long, @RequestBody courierDto: UpdateCourierRequestDto): ResponseEntity<CourierDto> {
         logger.info(withPrefix(INBOUND_LEVEL, "Update courier with id: {}"), id)

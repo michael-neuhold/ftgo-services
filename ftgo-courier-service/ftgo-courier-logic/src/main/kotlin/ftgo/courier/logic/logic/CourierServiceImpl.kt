@@ -18,17 +18,6 @@ class CourierServiceImpl(
     private val logger: Logger
 ) : CourierService {
 
-    /*
-    override fun updateAvailability(id: Long): Result<Boolean> {
-        logger.info(withPrefix(LOGIC_LEVEL, "Update Availability of courier id: {}"), id)
-        val courierToUpdate = getById(id);
-        if (courierToUpdate.isPresent) {
-            courierToUpdate.get().available = !courierToUpdate.get().available
-            return Optional.of(courierRepository.update(courierToUpdate.get()).available)
-        }
-       return Optional.empty();
-    }*/
-
     override fun create(courier: Courier): Result<Courier> {
         logger.info(withPrefix(LOGIC_LEVEL, "Create Courier: {}"), courier)
         return courierRepository.save(courier)

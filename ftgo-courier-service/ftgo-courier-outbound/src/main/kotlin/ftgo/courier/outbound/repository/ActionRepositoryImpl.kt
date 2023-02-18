@@ -17,6 +17,7 @@ class ActionRepositoryImpl(
     private val actionJpaRepository: ActionJpaRepository,
     private val logger: Logger
 ) : ActionRepository {
+
     override fun save(action: Action): Result<Action> {
         logger.info(withPrefix(OUTBOUND_LEVEL, "Save Action"))
         return Result.runCatching { actionJpaRepository.save(toEntity(action)) }
@@ -34,4 +35,5 @@ class ActionRepositoryImpl(
                 onFailure = { Result.failure(Exception("Persistence error")) }
             )
     }
+
 }

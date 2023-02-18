@@ -7,6 +7,7 @@ const val V1 = "v1"
 
 const val COURIERS = "couriers"
 const val ACTION = "action"
+const val UPDATE = "update"
 
 const val COURIERS_RESOURCE_V1 = "/$API/$V1/$COURIERS"
 

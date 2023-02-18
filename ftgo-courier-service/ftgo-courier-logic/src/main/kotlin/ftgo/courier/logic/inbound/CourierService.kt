@@ -5,8 +5,6 @@ import ftgo.courier.logic.Courier
 
 interface CourierService {
 
-    // fun updateAvailability(id: Long): Result<Boolean>
-
     fun create(courier: Courier): Result<Courier>
 
     fun update(courier: Courier): Result<Courier>
